@@ -18,6 +18,23 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
+## Preprocesamiento
+
+Genera `data/processed/abalone_clean.csv` a partir de `data/raw/abalone_raw.csv` y actualiza `data/data_log.json`.
+
+Desde la raíz del proyecto, con el entorno virtual activado:
+
+```bash
+python src/preprocess.py
+```
+
+Transformaciones aplicadas:
+- Cálculo de `age = rings + 1.5`.
+- Codificación one-hot de `sex`.
+- Eliminación de registros con `height <= 0`.
+
+Los atípicos no se eliminan en este paso: los límites IQR x3 se calculan solo sobre el set de entrenamiento en el Ejercicio 3, para evitar data leakage.
+
 ## Estructura del proyecto
 
 ```
