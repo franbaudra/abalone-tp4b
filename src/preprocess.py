@@ -13,3 +13,9 @@ def add_age(df):
     df = df.copy()
     df["age"] = df["rings"] + 1.5
     return df
+
+def encode_sex(df):
+    df = df.copy()
+    dummies = pd.get_dummies(df["sex"], prefix="sex", dtype=int)
+    df = pd.concat([df.drop(columns="sex"), dummies], axis=1)
+    return df
