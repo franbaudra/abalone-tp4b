@@ -23,7 +23,8 @@ pip install -r requirements.txt
 ```
 abalone-tp4b/
 ├── data/
-│   ├── raw/              # datos originales (sin modificar)│   ├── processed/        # datos limpios o transformados
+│   ├── raw/              # datos originales (sin modificar)
+│   ├── processed/        # datos limpios o transformados
 │   └── data_log.json     # registro de transformaciones (Ejercicio 2)
 ├── src/
 │   ├── preprocess.py     # transformaciones y limpieza (Ejercicio 2)
