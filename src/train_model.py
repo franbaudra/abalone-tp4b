@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
-
+import csv
+from datetime import datetime
 import json
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import joblib
@@ -17,6 +18,7 @@ TEST_SIZE = 0.2
 CLEAN_PATH = "data/processed/abalone_clean.csv"
 MODEL_PATH = "models/model_v1.pkl"
 METRICS_PATH = "results/metrics_v1.json"
+EXPERIMENTS_LOG_PATH = "results/experiments_log.csv"
 
 NUMERIC_COLS = [
     "length", "diameter", "height", "whole_weight",
@@ -35,6 +37,29 @@ HIPERPARAMETROS = {
 def dividir_datos(df, test_size=TEST_SIZE, seed=SEED):
     return train_test_split(df, test_size=test_size, random_state=seed)
 
+def registrar_experimento(id_experimento, metricas):
+    columnas = [
+        "id_experimento", "fecha_hora", "version_modelo",
+        "hiperparametros", "MAE", "RMSE", "R2",
+    ]
+    fila = {
+        "id_experimento": id_experimento,
+        "fecha_hora": datetime.now().isoformat(timespec="seconds"),
+        "version_modelo": "v1",
+        "hiperparametros": str(HIPERPARAMETROS),
+        "MAE": round(metricas["MAE"], 4),
+        "RMSE": round(metricas["RMSE"], 4),
+        "R2": round(metricas["R2"], 4),
+    }
+
+    Path(EXPERIMENTS_LOG_PATH).parent.mkdir(parents=True, exist_ok=True)
+    archivo_nuevo = not Path(EXPERIMENTS_LOG_PATH).exists() or Path(EXPERIMENTS_LOG_PATH).stat().st_size == 0
+
+    with open(EXPERIMENTS_LOG_PATH, "a", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=columnas)
+        if archivo_nuevo:
+            writer.writeheader()
+        writer.writerow(fila)
 
 def main():
     df = pd.read_csv(CLEAN_PATH)
@@ -79,6 +104,7 @@ def main():
 
     print(json.dumps(metricas, indent=2))
     print(f"Métricas guardadas en {METRICS_PATH}")
+    registrar_experimento("exp_v1_base", metricas)
 
 
 if __name__ == "__main__":
