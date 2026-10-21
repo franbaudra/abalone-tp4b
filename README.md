@@ -11,7 +11,7 @@ Modelo simple para predecir la edad de moluscos abalone (anillos) a partir de su
 ## Instalación
 
 ```bash
-git clone <url-del-repositorio>
+git clone <https://github.com/franbaudra/abalone-tp4b.git>
 cd abalone-tp4b
 python -m venv .venv
 .venv\Scripts\activate
