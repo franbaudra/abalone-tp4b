@@ -1,6 +1,8 @@
 import sys
 from pathlib import Path
 
+import json
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import joblib
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
@@ -14,6 +16,7 @@ SEED = 42
 TEST_SIZE = 0.2
 CLEAN_PATH = "data/processed/abalone_clean.csv"
 MODEL_PATH = "models/model_v1.pkl"
+METRICS_PATH = "results/metrics_v1.json"
 
 NUMERIC_COLS = [
     "length", "diameter", "height", "whole_weight",
@@ -42,6 +45,7 @@ def main():
     train = train[filas_sin_atipicos(train, limites)]
 
     X_train, y_train = train[FEATURES], train[TARGET]
+    X_test, y_test = test[FEATURES], test[TARGET]
 
     modelo = RandomForestRegressor(**HIPERPARAMETROS)
     modelo.fit(X_train, y_train)
@@ -49,9 +53,32 @@ def main():
     Path(MODEL_PATH).parent.mkdir(parents=True, exist_ok=True)
     joblib.dump(modelo, MODEL_PATH, compress=3)
 
-    print(f"Train (sin atípicos): {len(train)}")
-    print(f"Test (completo): {len(test)}")
-    print(f"Modelo guardado en {MODEL_PATH}")
+    # Evaluación sobre test (sin filtrar atípicos)
+    pred = modelo.predict(X_test)
+    metricas = {
+        "MAE": mean_absolute_error(y_test, pred),
+        "RMSE": mean_squared_error(y_test, pred) ** 0.5,
+        "R2": r2_score(y_test, pred),
+    }
+
+    resultado = {
+        "version": "v1",
+        "modelo": "RandomForestRegressor",
+        "archivo_modelo": MODEL_PATH,
+        "semilla": SEED,
+        "test_size": TEST_SIZE,
+        "hiperparametros": HIPERPARAMETROS,
+        "filas_train": len(train),
+        "filas_test": len(test),
+        "metricas_test": metricas,
+    }
+
+    Path(METRICS_PATH).parent.mkdir(parents=True, exist_ok=True)
+    with open(METRICS_PATH, "w", encoding="utf-8") as f:
+        json.dump(resultado, f, indent=2, ensure_ascii=False)
+
+    print(json.dumps(metricas, indent=2))
+    print(f"Métricas guardadas en {METRICS_PATH}")
 
 
 if __name__ == "__main__":

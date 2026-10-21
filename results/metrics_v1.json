@@ -1,0 +1,19 @@
+{
+  "version": "v1",
+  "modelo": "RandomForestRegressor",
+  "archivo_modelo": "models/model_v1.pkl",
+  "semilla": 42,
+  "test_size": 0.2,
+  "hiperparametros": {
+    "n_estimators": 200,
+    "max_depth": 10,
+    "random_state": 42
+  },
+  "filas_train": 3335,
+  "filas_test": 835,
+  "metricas_test": {
+    "MAE": 1.5472761018299286,
+    "RMSE": 2.212267786003364,
+    "R2": 0.5710909113705276
+  }
+}
