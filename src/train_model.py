@@ -28,11 +28,14 @@ FEATURES = NUMERIC_COLS + ["sex_F", "sex_I", "sex_M"]
 TARGET = "age"
 
 HIPERPARAMETROS = {
-    "n_estimators": 200,
-    "max_depth": 10,
+    "n_estimators": 300,
+    "max_depth": 15,
+    "min_samples_leaf": 3,
     "random_state": SEED,
 }
 
+MODEL_PATH = "models/model_v2.pkl"
+METRICS_PATH = "results/metrics_v2.json"
 
 def dividir_datos(df, test_size=TEST_SIZE, seed=SEED):
     return train_test_split(df, test_size=test_size, random_state=seed)
