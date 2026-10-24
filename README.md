@@ -62,6 +62,10 @@ python src/preprocess.py
 python src/train_model.py
 ```
 
+## Resultados
+
+- exp/hiperparametros (v2): MAE 1.2345, RMSE 1.6789, R² 0.5432
+
 ## Estructura del proyecto
 
 ```
