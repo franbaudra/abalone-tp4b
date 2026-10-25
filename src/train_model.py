@@ -15,9 +15,10 @@ from preprocess import calcular_limites, filas_sin_atipicos
 
 SEED = 42
 TEST_SIZE = 0.2
+VERSION = "v2"
 CLEAN_PATH = "data/processed/abalone_clean.csv"
-MODEL_PATH = "models/model_v1.pkl"
-METRICS_PATH = "results/metrics_v1.json"
+MODEL_PATH = f"models/model_{VERSION}.pkl"
+METRICS_PATH = f"results/metrics_{VERSION}.json"
 EXPERIMENTS_LOG_PATH = "results/experiments_log.csv"
 
 NUMERIC_COLS = [
@@ -28,24 +29,24 @@ FEATURES = NUMERIC_COLS + ["sex_F", "sex_I", "sex_M"]
 TARGET = "age"
 
 HIPERPARAMETROS = {
-    "n_estimators": 200,
-    "max_depth": 10,
+    "n_estimators": 500,
+    "max_depth": 8,
+    "min_samples_leaf": 5,
     "random_state": SEED,
 }
-
 
 def dividir_datos(df, test_size=TEST_SIZE, seed=SEED):
     return train_test_split(df, test_size=test_size, random_state=seed)
 
 def registrar_experimento(id_experimento, metricas):
     columnas = [
-        "id_experimento", "fecha_hora", "version_modelo",
+        "id_experimento", "fecha_hora", VERSION,
         "hiperparametros", "MAE", "RMSE", "R2",
     ]
     fila = {
         "id_experimento": id_experimento,
         "fecha_hora": datetime.now().isoformat(timespec="seconds"),
-        "version_modelo": "v1",
+        "version_modelo": VERSION,
         "hiperparametros": str(HIPERPARAMETROS),
         "MAE": round(metricas["MAE"], 4),
         "RMSE": round(metricas["RMSE"], 4),
@@ -87,7 +88,7 @@ def main():
     }
 
     resultado = {
-        "version": "v1",
+        "version": VERSION,
         "modelo": "RandomForestRegressor",
         "archivo_modelo": MODEL_PATH,
         "semilla": SEED,
@@ -104,7 +105,7 @@ def main():
 
     print(json.dumps(metricas, indent=2))
     print(f"Métricas guardadas en {METRICS_PATH}")
-    registrar_experimento("exp_v1_base", metricas)
+    registrar_experimento(f"exp_{VERSION}_hiperparametros", metricas)
 
 
 if __name__ == "__main__":
