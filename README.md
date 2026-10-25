@@ -62,6 +62,22 @@ python src/preprocess.py
 python src/train_model.py
 ```
 
+## Resultados
+
+**Experimento 2**
+
+Se utilizó el siguiente conjunto de hiperparámetros 
+
+```n_estimators = 500
+max_depth = 8
+min_samples_leaf = 5``
+
+Los resultados fueron:
+
+  "MAE": 1.5301841058578274,
+  "RMSE": 2.2110120922140513,
+  "R2": 0.571577674891939
+
 ## Estructura del proyecto
 
 ```
