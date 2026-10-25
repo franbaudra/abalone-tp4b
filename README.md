@@ -11,7 +11,7 @@ Modelo simple para predecir la edad de moluscos abalone (anillos) a partir de su
 ## Instalación
 
 ```bash
-git clone <https://github.com/franbaudra/abalone-tp4b.git>
+git clone https://github.com/franbaudra/abalone-tp4b.git
 cd abalone-tp4b
 python -m venv .venv
 .venv\Scripts\activate
@@ -32,8 +32,6 @@ Transformaciones aplicadas:
 - Cálculo de `age = rings + 1.5`.
 - Codificación one-hot de `sex`.
 - Eliminación de registros con `height <= 0`.
-
-Los atípicos no se eliminan en este paso: los límites IQR x3 se calculan solo sobre el set de entrenamiento en el Ejercicio 3, para evitar data leakage.
 
 ## Entrenamiento y evaluación
 
