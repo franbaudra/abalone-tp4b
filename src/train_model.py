@@ -40,7 +40,7 @@ def dividir_datos(df, test_size=TEST_SIZE, seed=SEED):
 
 def registrar_experimento(id_experimento, metricas):
     columnas = [
-        "id_experimento", "fecha_hora", VERSION,
+        "id_experimento", "fecha_hora", "version_modelo",
         "hiperparametros", "MAE", "RMSE", "R2",
     ]
     fila = {
