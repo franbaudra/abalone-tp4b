@@ -66,14 +66,26 @@ python src/train_model.py
 
 **Experimento 2**
 
-Se utilizó el siguiente conjunto de hiperparámetros 
+Hiperparámetros: 
+
+```n_estimators = 300
+max_depth = 15
+min_samples_leaf = 3``
+
+Resultados: 
+  "MAE": 1.2345
+  "RMSE": 1.6789,
+  "R2": 0.5432
+
+**Experimento 3**
+
+Hiperparámetros: 
 
 ```n_estimators = 500
 max_depth = 8
 min_samples_leaf = 5``
 
-Los resultados fueron:
-
+Resultados: 
   "MAE": 1.5301841058578274,
   "RMSE": 2.2110120922140513,
   "R2": 0.571577674891939

@@ -15,7 +15,7 @@ from preprocess import calcular_limites, filas_sin_atipicos
 
 SEED = 42
 TEST_SIZE = 0.2
-VERSION = "v2"
+VERSION = "v3"
 CLEAN_PATH = "data/processed/abalone_clean.csv"
 MODEL_PATH = f"models/model_{VERSION}.pkl"
 METRICS_PATH = f"results/metrics_{VERSION}.json"
