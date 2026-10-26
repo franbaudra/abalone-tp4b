@@ -92,7 +92,7 @@ Resultados:
 
 ## Estructura del proyecto
 
-
+```
 abalone-tp4b/
 ├── data/
 │   ├── raw/              # datos originales (sin modificar)
