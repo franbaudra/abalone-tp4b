@@ -1,0 +1,35 @@
+(...)
+
+FEATURES = NUMERIC_COLS + ["sex_F", "sex_I", "sex_M"]
+TARGET = "age"
+
+HIPERPARAMETROS = {
+<<<<<<< HEAD
+    "n_estimators": 500,
+    "max_depth": 8,
+    "min_samples_leaf": 5,
+    "random_state": SEED,
+}
+
+=======
+    "n_estimators": 300,
+    "max_depth": 15,
+    "min_samples_leaf": 3,
+    "random_state": SEED,
+}
+
+MODEL_PATH = "models/model_v2.pkl"
+METRICS_PATH = "results/metrics_v2.json"
+
+>>>>>>> origin/main
+def dividir_datos(df, test_size=TEST_SIZE, seed=SEED):
+    return train_test_split(df, test_size=test_size, random_state=seed)
+
+def registrar_experimento(id_experimento, metricas):
+    columnas = [
+        "id_experimento", "fecha_hora", "version_modelo",
+        "hiperparametros", "MAE", "RMSE", "R2",
+    ]
+    fila = {
+
+(...)
